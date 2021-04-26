@@ -41,7 +41,8 @@ def main(argv):
 
             subprocess.call("cat " + rsname + " | ./lvdo/src/lvdoenc -s 640x480 -q 6 --qmin 1 --qmax 4 | x264 --input-res 640x480 --fps 1 --profile high --level 5.1 --tune stillimage --crf 22 --colormatrix bt709 --me dia --merange 0 -o " + fullname + ".mkv -", shell=True)
             subprocess.call("rm " + rsname, shell=True)
-            subprocess.call("ffmpeg -i " + fullname + ".mkv -codec copy " + fullname + ".mp4", shell=True)
+            # subprocess.call("ffmpeg -i " + fullname + ".mkv -codec copy " + fullname + ".mp4", shell=True)
+            subprocess.call("ffmpeg -i " + fullname + ".mkv -c copy " + fullname + ".mp4", shell=True)
             subprocess.call("rm " + fullname + ".mkv", shell=True)
 
             #Upload video to youtube

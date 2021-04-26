@@ -42,14 +42,19 @@ def main(argv):
   # f.close()
   subprocess.call("youtube-dl " + videos[0] + " -o chunk" + ".mp4", shell=True)
 
-  subprocess.call("ffmpeg -i chunk" + ".mp4 -r 1 -f rawvideo temp", shell=True)
-  subprocess.call("cat temp | ./lvdo/src/lvdodec -s 640x480 -q 6 --qmin 1 --qmax 4 | cat > chunk", shell=True)
-  subprocess.call("rm temp", shell=True)
+  # subprocess.call("ffmpeg -i chunk" + ".mp4 -r 1 -f rawvideo temp", shell=True)
+  # subprocess.call("cat temp | ./lvdo/src/lvdodec -s 640x480 -q 6 --qmin 1 --qmax 4 | cat > chunk", shell=True)
+  # subprocess.call("rm temp", shell=True)
+  # subprocess.call("rm chunk"+".mp4", shell=True)
+
+  subprocess.call("ffmpeg -i " + "chunk.mp4 -c copy " + "temp.mkv", shell=True)
+  subprocess.call("ffmpeg -i temp.mkv -r 1 -f rawvideo - | ./lvdo/src/lvdodec -s 640x480 -q 6 --qmin 1 --qmax 4 | cat > chunk", shell=True)
+  subprocess.call("rm temp.mkv", shell=True)
   subprocess.call("rm chunk"+".mp4", shell=True)
 
   print('--------------------------------------------------')
   chunkFile = subprocess.check_output("cat chunk", shell=True)
-  decoded = rsc.decode(chunkFile)
+  decoded = rsc.decode(chunkFile)[0]
   outfile = open(filename, "wb")
   outfile.write(decoded)
   outfile.close()
