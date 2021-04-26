@@ -26,7 +26,7 @@ def main(argv):
   #   subprocess.call("rm temp", shell=True)
   #   subprocess.call("rm chunk"+str(i)+".mp4", shell=True)
 
-  #   print '--------------------------------------------------'
+  #   print('--------------------------------------------------')
   #   subprocess.call("cat chunk" + str(i) + " | ./ezpwd-reed-solomon/rsencode_16 --decode > part" + str(i), shell=True)
 
   # full_file = bytearray()
@@ -47,7 +47,7 @@ def main(argv):
   subprocess.call("rm temp", shell=True)
   subprocess.call("rm chunk"+".mp4", shell=True)
 
-  print '--------------------------------------------------'
+  print('--------------------------------------------------')
   chunkFile = subprocess.check_output("cat chunk", shell=True)
   decoded = rsc.decode(chunkFile)
   outfile = open(filename, "wb")
